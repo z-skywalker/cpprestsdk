@@ -19,6 +19,9 @@
 #include "cpprest/details/fileio.h"
 #include "cpprest/streams.h"
 #include <assert.h>
+#ifdef _WIN32
+#include <share.h>
+#endif
 
 #ifndef _CONCRT_H
 #ifndef _LWRCASE_CNCRRNCY
@@ -1012,7 +1015,7 @@ public:
     static pplx::task<streams::basic_istream<_CharType>> open_istream(const utility::string_t& file_name,
                                                                       std::ios_base::openmode mode = std::ios_base::in,
 #ifdef _WIN32
-                                                                      int prot = (int)std::ios_base::_Openprot
+                                                                      int prot = _SH_DENYNO
 #else
                                                                       int prot = 0
 #endif
@@ -1037,7 +1040,7 @@ public:
     static pplx::task<streams::basic_ostream<_CharType>> open_ostream(const utility::string_t& file_name,
                                                                       std::ios_base::openmode mode = std::ios_base::out,
 #ifdef _WIN32
-                                                                      int prot = (int)std::ios_base::_Openprot
+                                                                      int prot = _SH_DENYNO
 #else
                                                                       int prot = 0
 #endif
