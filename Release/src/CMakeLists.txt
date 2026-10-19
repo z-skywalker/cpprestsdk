@@ -47,6 +47,7 @@ target_include_directories(cpprest
     pch
 )
 
+  target_compile_definitions(cpprest PRIVATE -DBOOST_BIND_GLOBAL_PLACEHOLDERS)
 ## Sub-components
 # Websockets component
 if(CPPREST_WEBSOCKETS_IMPL STREQUAL "none")
